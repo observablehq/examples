@@ -1,0 +1,24 @@
+import React, {useState} from "react";
+import BrushableScatterplot from './BrushableScatterplot';
+
+export const App = () => {
+  // passed to notebook
+  const [height, setHeight] = useState(500)
+
+  // setter passed to notebook so it can set and this component can render
+  const [selection, setSelection] = useState()
+  
+  return (
+    <div>
+      <div style={{margin: "1em", padding: "1em", border: "1px solid gray"}}>
+        <h2>Observable notebook</h2>
+        <BrushableScatterplot height={height} setSelection={setSelection} />
+      </div>
+      <div style={{margin: "1em", padding: "1em", border: "1px solid gray"}}>
+        <h2>React component</h2>
+        <div>Height of chart: <input type="number" value={height} onChange={e => setHeight(e.target.value)} /></div>
+        <div>The current selection is <code>{selection ? JSON.stringify(selection.map(d => d.name).join(", ")) : "empty"}</code></div>
+      </div>
+    </div>
+  );
+}

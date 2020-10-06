@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>Observable | Custom fixed width</title>
+
+<div class="canvas"></div>
+<p>Credit: <a href="https://observablehq.com/@mbostock/prims-algorithm-iv">Prim’s Algorithm IV by Mike Bostock</a></p>
+
+<script type="module">
+
+import {Runtime, Inspector, Library} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@mbostock/prims-algorithm-iv.js?v=3";
+
+// Create a modified version of the standard library where width is defined as a
+// constant (640px), and pass it to the runtime
+const stdlib = new Library;
+const library = Object.assign({}, stdlib, {width: 640});
+const runtime = new Runtime(library);
+
+runtime.module(define, name => {
+  if (name === "canvas") return Inspector.into(".canvas")();
+});
+
+</script>

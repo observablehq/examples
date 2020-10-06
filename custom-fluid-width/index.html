@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>Observable | Custom fluid width</title>
+<style>
+  .chart {
+    width: 50%;
+  }
+</style>
+
+<!-- By CSS, above, the chart element will fill 50% of the body -->
+<div class="chart"></div>
+<p>Credit: <a href="https://observablehq.com/@d3/bar-chart">Bar Chart by D3</a></p>
+
+<script type="module">
+
+import {Runtime, Inspector, Library} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@d3/bar-chart.js?v=3";
+
+// Create a modified version of the standard library where width is defined as a
+// generator, below
+const chart = document.querySelector(".chart")
+const stdlib = new Library;
+const library = Object.assign({}, stdlib, {width});
+const runtime = new Runtime(library);
+
+runtime.module(define, name => {
+  if (name === "chart") return Inspector.into(".chart")();
+});
+
+// The width generator yields the chart element's clientWidth (if it has
+// changed) whenever the window resize event fires
+function width() {
+  return stdlib.Generators.observe(notify => {
+    let width = notify(chart.clientWidth);
+
+    function resized() {
+      let width1 = chart.clientWidth;
+      if (width1 !== width) notify(width = width1);
+    }
+
+    window.addEventListener("resize", resized);
+    return () => window.removeEventListener("resize", resized);
+  });
+}
+
+</script>

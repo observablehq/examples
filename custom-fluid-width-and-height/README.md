@@ -1,0 +1,1 @@
+Using the Runtime API in vanilla JavaScript to embed a notebook, the container will resize to fit the content. Sometimes we instead want the content to fit the container, where the container size is specified by CSS. We can accomplish this by overriding  

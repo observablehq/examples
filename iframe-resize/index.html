@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>Observable | Embed resizing iframe</title>
+
+<!-- Notice that no initial height is set; it could be, and may help initial
+page layout, but would soon be overridden by the resize message -->
+<iframe width="600" frameborder="0"
+  src="https://observablehq.com/embed/@d3/sortable-bar-chart?cell=viewof+order&cell=chart&cell=data">
+</iframe>
+
+<script>
+
+const iframe = document.querySelector("iframe");
+
+// The Embedly protocol is to send the height as part of a stringified object.
+// In this example, the resize message is the only message being sent; however,
+// the checks are good practice, lest we try to interpret unrelated messages as
+// resize events. https://docs.embed.ly/v1.0/docs/provider-height-resizing
+function onMessage(msg) {
+  let {data} = msg;
+
+  if (msg.source === iframe.contentWindow && typeof data === "string") {
+    try {
+      // Try to parse
+      data = JSON.parse(data);
+    } catch {
+      // The message wasn't valid JSON, so it must not be our resize event
+      return;
+    }
+  }
+
+  // Make sure it's the resize event
+  if (data.context === "iframe.resize") {
+    const {height} = data;
+    iframe.style.height = height + "px";
+  }
+}
+
+// Attach our listener for the message from the iframe
+window.addEventListener("message", onMessage);
+
+</script>
+</html>
