@@ -3,10 +3,10 @@ import BrushableScatterplot from './BrushableScatterplot';
 
 export const App = () => {
   // passed to notebook
-  const [height, setHeight] = useState(500)
+  const [height, setHeight] = useState(600)
 
   // setter passed to notebook so it can set and this component can render
-  const [selection, setSelection] = useState()
+  const [selection, setSelection] = useState([])
   
   return (
     <div>
@@ -16,8 +16,8 @@ export const App = () => {
       </div>
       <div style={{margin: "1em", padding: "1em", border: "1px solid gray"}}>
         <h2>React component</h2>
-        <div>Height of chart: <input type="number" value={height} onChange={e => setHeight(e.target.value)} /></div>
-        <div>The current selection is <code>{selection ? JSON.stringify(selection.map(d => d.name).join(", ")) : "empty"}</code></div>
+        <p>Height of chart: <input type="number" value={height} onChange={e => setHeight(e.target.value)} /></p>
+        <p>Current selection: {selection.length ? selection.map(d => d.name).join(", ") : "empty"}</p>
       </div>
     </div>
   );

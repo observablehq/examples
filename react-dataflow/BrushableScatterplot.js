@@ -7,19 +7,19 @@ function BrushableScatterplot({height, setSelection}) {
   const [module, setModule] = useState()
 
   useEffect(() => {
-    if (ref.current) {
-      const newModule = (new Runtime).module(notebook, name => {
-        if (name === "viewof selection") return Inspector.into(ref.current.querySelector(".viewof-selection"))();
-        
-        // passes selection back up to parent component
-        if (name === "selection") return {fulfilled(value) { setSelection(value); }};
-      });
-      setModule(newModule)
-    }
+    const newModule = (new Runtime).module(notebook, name => {
+      if (name === "viewof selection") return Inspector.into(ref.current.querySelector(".viewof-selection"))();
+      
+      // passes selection back up to parent component
+      if (name === "selection") return {fulfilled(value) { setSelection(value); }};
+    });
+    setModule(newModule)
   }, []);
 
   // receives height updates from parent
-  if (module) module.redefine("height", height)
+  useEffect(() => {
+    if (module) module.redefine("height", height)
+  }, [height])
 
   return (
     <div className="BrushableScatterplot" ref={ref}>

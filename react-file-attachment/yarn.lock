@@ -922,9 +922,9 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@ballingt/this-one-is-a-totally-new-test-notebook@https://api.observablehq.com/@ballingt/this-one-is-a-totally-new-test-notebook.tgz?v=3":
-  version "13.0.0"
-  resolved "https://api.observablehq.com/@ballingt/this-one-is-a-totally-new-test-notebook.tgz?v=3#eefbe1df64404fd337f40ed1465fa71341e831e1"
+"@d3/bar-chart@https://api.observablehq.com/@d3/bar-chart.tgz?v=3":
+  version "257.0.0"
+  resolved "https://api.observablehq.com/@d3/bar-chart.tgz?v=3#1144cbda68b76c79f2c73e99a2db4a0e0ff32160"
 
 "@observablehq/inspector@^3.2.0":
   version "3.2.1"

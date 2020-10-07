@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>Observable | Embed specific versions</title>
+
+<h1>Embed specific versions</h1>
+<p>From: <a href="https://observablehq.com/@observablehq/downloading-and-embedding-notebooks">Downloading and Embedding Notebooks</a>.</p>
+
+<hr>
+
+<p>Embedded at the current version:</p>
+<div id="observablehq-6e5586f4"></div>
+
+<script type="module">
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@observablehq/downloading-and-embedding-notebooks.js?v=3";
+const inspect = Inspector.into("#observablehq-6e5586f4");
+(new Runtime).module(define, name => (name === "graphic") && inspect());
+</script>
+
+<hr>
+
+<p>Embedded at <a href="https://observablehq.com/d/c2a04e7b9a9d03bb@1046">an older version (1046)</a> of the notebook:</p>
+<div id="observablehq-6da5969b"></div>
+
+<script type="module">
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@observablehq/downloading-and-embedding-notebooks@1046.js?v=3";
+const inspect = Inspector.into("#observablehq-6da5969b");
+(new Runtime).module(define, name => (name === "graphic") && inspect());
+</script>
