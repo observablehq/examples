@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>Observable | Custom data</title>
+
+<h1>This Zoomable Sunburst uses custom data loaded locally from <a href="population.json">population.json</a></h1>
+<div class="chart"></div>
+<p>Credit: <a href="https://observablehq.com/@d3/zoomable-sunburst">Zoomable Sunburst by D3</a></p>
+
+<script type="module">
+
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@d3/zoomable-sunburst.js?v=3";
+
+// When you give the Inspector an element, it’s not a one-time render;
+// it will continue to render updates into that element
+const main = (new Runtime).module(define, name => {
+  if (name === "chart") return Inspector.into(".chart")();
+});
+
+(async function() {
+  // Redefine the cell `data` as the local file population.json; 
+  // it will update in the element previously given to the Inspector above
+  main.redefine("data", (await fetch("population.json")).json())
+})()
+
+</script>

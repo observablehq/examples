@@ -4,6 +4,7 @@ This repository contains several small self-contained examples of embedding Obse
 |---|---|
 | **simple-constant** | Just about the most straightforward embed possible |
 | **simple-generator** | Nearly the most straightforward embed possible, but with a generator instead of a constant |
+| **custom-data** | Pass your own local data into a chart |
 | **custom-fixed-width** | Overriding the Standard Library with a constant width |
 | **custom-fluid-width** | Overriding the Standard Library with a generator the yields an element’s width |
 | **custom-fluid-width-and-height** | Overriding the Standard Library and notebook with an element’s width and height |
