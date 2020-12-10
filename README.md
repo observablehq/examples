@@ -1,5 +1,3 @@
-# Observable embedding examples
-
 This repository contains several small self-contained examples of embedding Observable notebooks in other contexts.
 
 | Example | Description | 
