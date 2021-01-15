@@ -1,0 +1,14 @@
+{
+  "name": "@d3/bar-chart-race",
+  "main": "3ff9fa2c6593d814@3048.js",
+  "version": "3048.0.0",
+  "homepage": "https://observablehq.com/@d3/bar-chart-race",
+  "author": {
+    "name": "D3",
+    "url": "https://observablehq.com/@d3"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4"
+  }
+}
