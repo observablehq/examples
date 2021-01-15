@@ -26,8 +26,8 @@ import notebook from "https://api.observablehq.com/@d3/bar-chart.js?v=3";
 // Embed the chart cell from the notebook into the corresponding DOM element.
 const container = document.querySelector("#container");
 const chart = document.querySelector("#chart");
-const stdlib = new Library();
-const runtime = new Runtime(stdlib);
+const library = new Library();
+const runtime = new Runtime(library);
 const main = runtime.module(notebook, name => {
   if (name === "chart") {
     return new Inspector(chart);
@@ -43,7 +43,7 @@ main.redefine("height", resizer(container, "height"));
 // generalized generator “factory” function that watches the specified dimension
 // of the specified element. (Note: depends on browser ResizeObserver support.)
 function resizer(element, dimension) {
-  return stdlib.Generators.observe(notify => {
+  return library.Generators.observe(notify => {
     let value = element.getBoundingClientRect()[dimension];
     notify(value);
     const observer = new ResizeObserver(([entry]) => {

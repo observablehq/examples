@@ -2,6 +2,8 @@
 
 See it live: https://observablehq.github.io/examples/custom-fixed-width/
 
-Using the Runtime API in vanilla JavaScript to embed a notebook, the container will resize to fit the content. Sometimes we instead want the content to fit the container, e.g. where the container size is specified by CSS. We can accomplish this by overriding the `width` variable in the standard library. In this example we create a library in which `width` is defined as the constant `640`, and then pass that library into the runtime.
+By default, `width` in an embedded notebook resolves to the [body’s client width](https://github.com/observablehq/stdlib/blob/master/src/width.js). Depending on where you embed a cell, you may wish redefine the value of `width`, *e.g.* to fit the cell’s container. We can accomplish this by [redefining](https://github.com/observablehq/runtime/blob/master/README.md#module_redefine) `width` in the embedded notebook as a fixed value such as 640px. (See also the [custom fluid width](../custom-fluid-width/) and [custom fluid width and height](../custom-fluid-width-and-height/) examples.)
 
-The behavior of this technique depends on how the notebook uses `width`. In this case, it sets the width of a canvas, so the canvas ends up 640px wide. In other notebooks, `width` is passed into an SVG’s `viewBox` attribute, which does not necessarily set the size of the SVG on the page; rather, it sets the internal coordinate system. In those cases you may need to both override `width` and explicitly style the container to have the same width.
+Note that in some notebooks, `width` is only used to set an SVG’s viewBox attribute, which does not set the size of the SVG on the page; it merely affects the SVG’s internal coordinate system. In this case you may need to both redefine `width` and explicitly style the container to have the desired width.
+
+Redefining `width` only affects the embedded notebook; it doesn’t change the value of `width` provided by the Observable standard library in transitive imports. For that, see the [custom library example](../custom-library).

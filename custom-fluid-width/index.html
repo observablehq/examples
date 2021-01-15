@@ -21,31 +21,26 @@ body {
 import {Runtime, Inspector, Library} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
 import notebook from "https://api.observablehq.com/@d3/bar-chart.js?v=3";
 
-// Create a modified version of the standard library where width is defined as a
-// generator, below.
 const chart = document.querySelector("#chart");
-const stdlib = new Library();
-const library = Object.assign({}, stdlib, {width});
+const library = new Library();
 const runtime = new Runtime(library);
-
-runtime.module(notebook, name => {
+const main = runtime.module(notebook, name => {
   if (name === "chart") {
     return new Inspector(chart);
   }
 });
 
-// The width generator yields the chart element’s clientWidth (if it has
-// changed) whenever the window resize event fires.
-function width() {
-  return stdlib.Generators.observe(notify => {
-    let width = notify(chart.clientWidth);
-    function resized() {
-      let width1 = chart.clientWidth;
-      if (width1 !== width) notify(width = width1);
-    }
-    addEventListener("resize", resized);
-    return () => removeEventListener("resize", resized);
-  });
-}
+// Redefine width as a generator that yields the chart element’s clientWidth (if
+// it has changed) whenever the window resize event fires. If desired, use a
+// ResizeObserver instead; see the custom-fluid-width-and-height example.
+main.redefine("width", library.Generators.observe(notify => {
+  let width = notify(chart.clientWidth);
+  function resized() {
+    let newWidth = chart.clientWidth;
+    if (newWidth !== width) notify(width = newWidth);
+  }
+  addEventListener("resize", resized);
+  return () => removeEventListener("resize", resized);
+}));
 
 </script>
