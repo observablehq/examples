@@ -1,4 +1,6 @@
-This repository contains several small self-contained examples of embedding Observable notebooks in other contexts.
+# Observable Examples
+
+This repository contains examples of [embedding Observable notebooks](https://observablehq.com/@observablehq/introduction-to-embedding) in a variety of contexts.
 
 | Example | Description |
 |---|---|
