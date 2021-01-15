@@ -5,6 +5,7 @@
 body {
   max-width: 960px;
   margin: 1em auto;
+  padding: 0 1em;
   font-family: sans-serif;
 }
 
@@ -20,6 +21,7 @@ body {
 import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
 import notebook from "https://api.observablehq.com/@d3/zoomable-sunburst.js?v=3";
 
+// Instantiate the notebook.
 const runtime = new Runtime();
 const main = runtime.module(notebook, name => {
   if (name === "chart") {

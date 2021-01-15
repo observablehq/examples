@@ -1,46 +1,55 @@
 <!DOCTYPE html>
-<html>
 <meta charset="utf-8">
-<title>Observable | Embed resizing iframe</title>
+<style>
 
-<h1>This iframe resizes itself to match its contents</h1>
+body {
+  max-width: 960px;
+  margin: 1em auto;
+  padding: 0 1em;
+  font-family: sans-serif;
+}
 
-<!-- Notice that no initial height is set; it could be, and may help initial
-page layout, but would soon be overridden by the resize message -->
-<iframe width="600" frameborder="0"
-  src="https://observablehq.com/embed/@d3/sortable-bar-chart?cell=viewof+order&cell=chart&cell=data">
-</iframe>
+a:link:not(:hover) {
+  text-decoration: none;
+}
 
-<script>
+</style>
+<h1><a href="https://github.com/observablehq/examples">Observable Example</a>: <a href="https://github.com/observablehq/examples/tree/main/iframe-resize">Iframe Resize</a></h1>
+<p>This example demonstrates an Observable notebook embedded as an iframe that resizes automatically to fit its contents.</p>
 
-const iframe = document.querySelector("iframe");
+<!-- Setting an initial height may help initial page layout, but would be overridden on resize. -->
+<iframe id="embed" width="600" frameborder="0" src="https://observablehq.com/embed/@d3/sortable-bar-chart?cell=viewof+order&cell=chart&cell=data"></iframe>
+
+<script type="module">
+
+// Select the embed iframe.
+const iframe = document.querySelector("#embed");
 
 // The Embedly protocol is to send the height as part of a stringified object.
 // In this example, the resize message is the only message being sent; however,
 // the checks are good practice, lest we try to interpret unrelated messages as
 // resize events. https://docs.embed.ly/v1.0/docs/provider-height-resizing
-function onMessage(msg) {
-  let {data} = msg;
+function onMessage(message) {
+  if (message.source !== iframe.contentWindow) return;
+  let {data} = message;
 
-  if (msg.source === iframe.contentWindow && typeof data === "string") {
+  // If message isn’t valid JSON, it must not be our resize event.
+  if (typeof data === "string") {
     try {
-      // Try to parse
       data = JSON.parse(data);
-    } catch {
-      // The message wasn't valid JSON, so it must not be our resize event
+    } catch (ignore) {
       return;
     }
   }
 
-  // Make sure it's the resize event
-  if (data.context === "iframe.resize") {
-    const {height} = data;
-    iframe.style.height = height + "px";
-  }
+  // Make sure it’s the resize event.
+  if (data.context !== "iframe.resize") return;
+
+  // Set the iframe’s height!
+  iframe.style.height = `${data.height}px`;
 }
 
 // Attach our listener for the message from the iframe
-window.addEventListener("message", onMessage);
+addEventListener("message", onMessage);
 
 </script>
-</html>

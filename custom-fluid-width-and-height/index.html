@@ -5,12 +5,17 @@
 body {
   max-width: 960px;
   margin: 1em auto;
+  padding: 0 1em;
   font-family: sans-serif;
 }
 
+a:link:not(:hover) {
+  text-decoration: none;
+}
+
 </style>
-<h1>Observable Example: Custom Fluid Width & Height</h1>
-<p>This <a href="https://github.com/observablehq/examples/tree/main/custom-fluid-width-and-height">example</a> demonstrates responsive sizing where the embedded chart is 50% the width and height of the page. Try resizing the window to see the chart resize automatically.</p>
+<h1><a href="https://github.com/observablehq/examples">Observable Example</a>: <a href="https://github.com/observablehq/examples/tree/main/custom-fluid-width-and-height">Custom Fluid Width & Height</a></h1>
+<p>This example demonstrates responsive sizing: the embedded chart is 50% the width and height of the window. Try resizing the window to see the chart resize.</p>
 
 <!-- By CSS the container element will fill half the height and half the width of the window. -->
 <div id="container" style="position: relative; width: 50vw; height: 50vh;">
@@ -23,9 +28,12 @@ body {
 import {Runtime, Inspector, Library} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
 import notebook from "https://api.observablehq.com/@d3/bar-chart.js?v=3";
 
-// Embed the chart cell from the notebook into the corresponding DOM element.
-const container = document.querySelector("#container");
+// To avoid the chart itself affecting the size of its container, the chart is
+// absolutely-positioned within the container element that determines the size.
 const chart = document.querySelector("#chart");
+const container = chart.parentNode;
+
+// Embed the chart cell from the notebook into the chart element.
 const library = new Library();
 const runtime = new Runtime(library);
 const main = runtime.module(notebook, name => {
@@ -35,17 +43,16 @@ const main = runtime.module(notebook, name => {
 });
 
 // Redefine width and height to be a generator created by the resizer function
-// below to observe the size of the chart.
+// below to observe the size of the container.
 main.redefine("width", resizer(container, "width"));
 main.redefine("height", resizer(container, "height"));
 
-// Rather than make separate generator functions for width and height, here’s a
-// generalized generator “factory” function that watches the specified dimension
-// of the specified element. (Note: depends on browser ResizeObserver support.)
+// Rather making separate generators for width and height, here’s a generalized
+// generator “factory” that watches the given dimension of the given element.
+// (Note: depends on browser ResizeObserver support.)
 function resizer(element, dimension) {
   return library.Generators.observe(notify => {
-    let value = element.getBoundingClientRect()[dimension];
-    notify(value);
+    let value = notify(element.getBoundingClientRect()[dimension]); // initial value
     const observer = new ResizeObserver(([entry]) => {
       const newValue = entry.contentRect[dimension];
       if (newValue !== value) {

@@ -6,30 +6,37 @@
 body {
   max-width: 960px;
   margin: 1em auto;
+  padding: 0 1em;
   font-family: sans-serif;
 }
 
+a:link:not(:hover) {
+  text-decoration: none;
+}
+
 </style>
-<h1>Observable Example: Simple Generator</h1>
-<p>This <a href="https://github.com/observablehq/examples/tree/main/simple-generator">example</a> demonstrates how to observe the value of a generator cell in an <a href="https://observablehq.com/@observablehq/downloading-and-embedding-notebooks">embedded Observable notebook</a>.</p>
+<h1><a href="https://github.com/observablehq/examples">Observable Example</a>: <a href="https://github.com/observablehq/examples/tree/main/simple-generator">Simple Generator</a></h1>
+<p>This example demonstrates how to observe the value of a cell in an embedded Observable notebook.</p>
 <p>The current value of <i>tick</i> is: <span id="tick">…</span></p>
 <script type="module">
 
-// Load the Observable runtime and inspector.
 import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-
-// Your notebook, compiled as an ES module.
 import notebook from "https://api.observablehq.com/@jashkenas/tick.js?v=3";
 
-// Load the notebook, observing its cells with a custom Inspector that renders
-// the value of the named cell into the document.
-const runtime = new Runtime();
+// Select the element into which we’ll show the observed value.
 const display = document.querySelector("#tick");
+
+// Load the notebook, observing the “tick” cell with a custom Inspector that
+// renders any fulfilled value into the previously-selected element.
+const runtime = new Runtime();
 const main = runtime.module(notebook, name => {
   if (name === "tick") {
     return {
       fulfilled(value) {
         display.textContent = value;
+      },
+      rejected(error) { // optional, if you want to handle errors
+        display.textContent = error;
       }
     };
   }

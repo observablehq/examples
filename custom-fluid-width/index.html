@@ -5,24 +5,34 @@
 body {
   max-width: 960px;
   margin: 1em auto;
+  padding: 0 1em;
   font-family: sans-serif;
 }
 
+a:link:not(:hover) {
+  text-decoration: none;
+}
+
 </style>
-<h1>Observable Example: Custom Fluid Width</h1>
-<p>This <a href="https://github.com/observablehq/examples/tree/main/custom-fluid-width">example</a> demonstrates responsive sizing where the embedded chart is 50% the width of the page. Try resizing the window to see the chart resize automatically.</p>
+<h1><a href="https://github.com/observablehq/examples">Observable Example</a>: <a href="https://github.com/observablehq/examples/tree/main/custom-fluid-width">Custom Fluid Width</a></h1>
+<p>This example demonstrates responsive sizing where the embedded chart is 50% the width of the page. Try resizing the window to see the chart resize automatically.</p>
 
 <!-- By CSS the chart element will fill 50% of the body -->
 <div id="chart" style="width: 50%;"></div>
-<p>Credit: <a href="https://observablehq.com/@d3/bar-chart">Bar Chart by D3</a></p>
+<p>Credit: <a href="https://observablehq.com/@d3/bar-chart">Mike Bostock</a></p>
 
 <script type="module">
 
 import {Runtime, Inspector, Library} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
 import notebook from "https://api.observablehq.com/@d3/bar-chart.js?v=3";
 
+// Select the element into which we’ll embed the chart.
 const chart = document.querySelector("#chart");
+
+// Instantiate a standard library that can be used by the definition of width below.
 const library = new Library();
+
+// Pass the custom library to the runtime when instantiating our notebook.
 const runtime = new Runtime(library);
 const main = runtime.module(notebook, name => {
   if (name === "chart") {
@@ -31,13 +41,15 @@ const main = runtime.module(notebook, name => {
 });
 
 // Redefine width as a generator that yields the chart element’s clientWidth (if
-// it has changed) whenever the window resize event fires. If desired, use a
+// changed) whenever the window resize event fires. If desired, use a
 // ResizeObserver instead; see the custom-fluid-width-and-height example.
 main.redefine("width", library.Generators.observe(notify => {
-  let width = notify(chart.clientWidth);
+  let width = notify(chart.clientWidth); // initial width
   function resized() {
     let newWidth = chart.clientWidth;
-    if (newWidth !== width) notify(width = newWidth);
+    if (newWidth !== width) {
+      notify(width = newWidth);
+    }
   }
   addEventListener("resize", resized);
   return () => removeEventListener("resize", resized);

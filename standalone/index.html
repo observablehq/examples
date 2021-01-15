@@ -13,16 +13,22 @@ body {
   font-family: var(--sans-serif);
 }
 
+a:link:not(:hover) {
+  text-decoration: none;
+}
+
 </style>
-<h1>The most populous cities in the world, 1575–2020</h1>
-<p>This is an example of a <a href="https://github.com/observablehq/notebook-download-example">standalone Observable notebook</a>. Data: <a href="https://gist.githubusercontent.com/johnburnmurdoch/4199dbe55095c3e13de8d5b2e5e5307a">John Burn–Murdoch</a></p>
+<h1><a href="https://github.com/observablehq/examples">Observable Example</a>: <a href="https://github.com/observablehq/examples/tree/main/standalone">Standalone</a></h1>
+<p>This example demonstrates a standalone Observable notebook with no external dependencies.</p>
+<h2>The most populous cities in the world, 1575–2020</h2>
 <div name="viewof replay"></div>
 <div name="chart"></div>
+<p>Credit: <a href="https://observablehq.com/@d3/bar-chart-race">Mike Bostock</a> · Data: <a href="https://gist.githubusercontent.com/johnburnmurdoch/4199dbe55095c3e13de8d5b2e5e5307a">John Burn–Murdoch</a></p>
 <script src="d3.js"></script>
 <script type="module">
 
 import {Runtime, Library, Inspector} from "./runtime.js";
-import barChartRace from "./bar-chart-race/index.js";
+import notebook from "./bar-chart-race/index.js";
 
 // Initialize the Observable Runtime, telling it to use our local copy of D3
 // rather than loading one from a CDN.
@@ -34,7 +40,7 @@ const runtime = new Runtime(new Library(name => {
 
 // Show the output of the “chart” and “viewof replay” cells in the DIV elements
 // with the corresponding name.
-const main = runtime.module(barChartRace, name => {
+const main = runtime.module(notebook, name => {
   if (["chart", "viewof replay"].includes(name)) {
     return new Inspector(document.querySelector(`[name='${name}']`));
   }
