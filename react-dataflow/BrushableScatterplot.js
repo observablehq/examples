@@ -9,7 +9,7 @@ function BrushableScatterplot({height, setSelection}) {
   useEffect(() => {
     const newModule = (new Runtime).module(notebook, name => {
       if (name === "viewof selection") return Inspector.into(ref.current.querySelector(".viewof-selection"))();
-      
+
       // passes selection back up to parent component
       if (name === "selection") return {fulfilled(value) { setSelection(value); }};
     });

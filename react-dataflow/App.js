@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import BrushableScatterplot from './BrushableScatterplot';
+import BrushableScatterplot from "./BrushableScatterplot.js";
 
 export const App = () => {
   // passed to notebook
@@ -7,7 +7,7 @@ export const App = () => {
 
   // setter passed to notebook so it can set and this component can render
   const [selection, setSelection] = useState([])
-  
+
   return (
     <div>
       <div style={{margin: "1em", padding: "1em", border: "1px solid gray"}}>
