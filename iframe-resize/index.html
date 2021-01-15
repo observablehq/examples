@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html>
 <meta charset="utf-8">
-<title>Observable | Embed resizing iframe</title>
+<style>
 
-<h1>This iframe resizes itself to match its contents</h1>
+  body {
+    max-width: 960px;
+    margin: 1em auto;
+    font-family: sans-serif;
+  }
+  
+</style>
+<h1>Observable Example: Iframe Resize</h1>
+<p>This <a href="https://github.com/observablehq/examples/tree/main/iframe-resize">example</a> demonstrates how to listen for the message that our <a href="https://next.observablehq.com/@observablehq/introduction-to-embedding">Iframe</a> sends (according to <a href="https://docs.embed.ly/v1.0/docs/provider-height-resizing">Embedly’s protocol</a>) and resize it to the height of its contents. (Try expanding the <code>data</code> inspector below the chart.)</p>
 
 <!-- Notice that no initial height is set; it could be, and may help initial
 page layout, but would soon be overridden by the resize message -->
@@ -43,4 +50,3 @@ function onMessage(msg) {
 window.addEventListener("message", onMessage);
 
 </script>
-</html>
