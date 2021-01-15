@@ -25,12 +25,14 @@ import notebook from "https://api.observablehq.com/@jashkenas/tick.js?v=3";
 // the value of the named cell into the document.
 const runtime = new Runtime();
 const display = document.querySelector("#tick");
-runtime.module(notebook, name => {
-  if (name === "tick") return {
-    fulfilled: (value) => {
-      display.textContent = value;
-    }
-  };
+const main = runtime.module(notebook, name => {
+  if (name === "tick") {
+    return {
+      fulfilled(value) {
+        display.textContent = value;
+      }
+    };
+  }
 });
 
 </script>

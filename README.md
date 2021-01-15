@@ -4,7 +4,8 @@ This repository contains examples of [embedding Observable notebooks](https://ob
 
 | Example | Description |
 |---|---|
-| [**simple-constant**](https://github.com/observablehq/examples/tree/main/simple-constant/) | Embed an entire notebook into the page |
+| [**simple-notebook**](https://github.com/observablehq/examples/tree/main/simple-notebook/) | Embed an entire notebook into the page |
+| [**simple-constant**](https://github.com/observablehq/examples/tree/main/simple-constant/) | Read the value of a cell (that never changes) |
 | [**simple-generator**](https://github.com/observablehq/examples/tree/main/simple-generator/) | Read the value of a cell (that may change over time) |
 | [**custom-data**](https://github.com/observablehq/examples/tree/main/custom-data/) | Pass your data into a chart |
 | [**custom-fixed-width**](https://github.com/observablehq/examples/tree/main/custom-fixed-width/) | Set the width of a chart to a fixed value |

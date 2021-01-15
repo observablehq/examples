@@ -11,17 +11,25 @@ body {
 
 </style>
 <h1>Observable Example: Simple Constant</h1>
-<p>This <a href="https://github.com/observablehq/examples/tree/main/simple-constant">example</a> demonstrates how to <a href="https://observablehq.com/@observablehq/downloading-and-embedding-notebooks">embed</a> an <a href="https://observablehq.com/@jashkenas/my-neat-notebook">entire notebook</a>.</p>
+<p>This <a href="https://github.com/observablehq/examples/tree/main/simple-constant">example</a> demonstrates extracting values from an Observable notebook.</p>
+<p>The answer is <span id="answer">…</span>.</p>
+<p><span id="greeting">…</span></p>
 <script type="module">
 
-// Load the Observable runtime and inspector.
 import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import notebook from "https://api.observablehq.com/d/e893bb16368a0a92.js?v=3";
 
-// Your notebook, compiled as an ES module.
-import notebook from "https://api.observablehq.com/@jashkenas/my-neat-notebook.js?v=3";
+(async () => {
+  const runtime = new Runtime();
+  const main = runtime.module(notebook);
 
-// Load the notebook, observing its cells with a default Inspector that simply
-// renders the value of every cell into the provided DOM node.
-new Runtime().module(notebook, Inspector.into(document.body));
+  // Extract the value of “answer”.
+  const answer = await main.value("answer");
+  document.querySelector("#answer").textContent = answer;
+
+  // Extract the value of “greet”.
+  const greet = await main.value("greet");
+  document.querySelector("#greeting").textContent = greet("world");
+})();
 
 </script>

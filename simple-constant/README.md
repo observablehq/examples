@@ -2,16 +2,22 @@
 
 See it live: https://observablehq.github.io/examples/simple-constant/
 
-This bare-bones example demonstrates rendering an Observable-hosted [example notebook](https://observablehq.com/@jashkenas/my-neat-notebook) into the document body.
+This example demonstrates extracting values from an [example notebook](https://observablehq.com/d/e893bb16368a0a92) using [*module*.value](https://github.com/observablehq/runtime/blob/master/README.md#module_value). This is convenient when the value of the cell never changes; see the [simple generator example](../simple-generator/) for an alternative technique that allows observing values that change over time.
 
 ```js
-// Load the Observable runtime and inspector.
 import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import notebook from "https://api.observablehq.com/d/e893bb16368a0a92.js?v=3";
 
-// Your notebook, compiled as an ES module.
-import notebook from "https://api.observablehq.com/@jashkenas/my-neat-notebook.js?v=3";
+(async () => {
+  const runtime = new Runtime();
+  const main = runtime.module(notebook);
 
-// Load the notebook, observing its cells with a default Inspector
-// that simply renders the value of each cell into the provided DOM node.
-new Runtime().module(notebook, Inspector.into(document.body));
+  // Extract the value of “answer”.
+  const answer = await module.value("answer");
+  console.log(`The answer is ${answer}.`); // The answer is 42.
+
+  // Extract the value of “greet”.
+  const greet = await module.value("greet");
+  console.log(greet("world")); // Hello, world!
+})();
 ```
