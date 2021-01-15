@@ -1,3 +1,7 @@
+# Observable Example: Custom Fluid Width & Height
+
+See it live: https://observablehq.github.io/examples/custom-fluid-width-and-height/
+
 Using the Runtime API in vanilla JavaScript to embed a notebook, the container will resize to fit the content. Sometimes we instead want the content to fit the container, e.g. where the container size is specified by CSS. We can accomplish this by overriding the `width` variable in the standard library, as well as the `height` variable in the notebook. (Note that `width` and `height` are different kinds of things in Observable: `width` (which refers to the width of the entire notebook and is not cell-specific) is available as a reactive variable in every notebook via the standard library, whereas height must be explicitly implemented as a cell by the notebook author and used to control the height of a _particular_ cell, e.g. the main chart.)
 
 In this example we create a general-purpose `resizer` Generator that takes an `element` and a `dimension` of that element, which could be any attribute but here is either `clientWidth` or `clientHeight`. Upon window resizes, the resizer yields the new value of the specified dimension of the specified object. The resizer is used twice. First, we create a library in which `width` is defined as the `clientWidth` of the `.chart` element. We pass that modified library into the runtime and initialize the notebook. Then, the `height` variable is redefined as the `clientHeight` of the `.chart` element.
