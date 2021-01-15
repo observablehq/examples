@@ -1,4 +1,6 @@
-# Example: A Standalone Observable Notebook
+# Observable Example: Standalone
+
+See it live: https://observablehq.github.io/examples/standalone/
 
 This example demonstrates how to [download](https://observablehq.com/@observablehq/downloading-and-embedding-notebooks) and run an Observable notebook with zero external dependencies in vanilla JavaScript! We also demonstrate substituting a local dataset and overriding the behavior of the notebook at runtime. You can apply the techniques here to any Observable notebook. (License-permitting; the D3 notebooks are ISC licensed.)
 

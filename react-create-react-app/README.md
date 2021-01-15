@@ -1,4 +1,4 @@
-# Observable + create-react-app
+# Observable Example: create-react-app
 
 This repo was created using `create-react-app`:
 
