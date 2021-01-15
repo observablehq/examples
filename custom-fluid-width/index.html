@@ -1,48 +1,50 @@
 <!DOCTYPE html>
-<html>
 <meta charset="utf-8">
-<title>Observable | Custom fluid width</title>
 <style>
-  .chart {
-    width: 50%;
-  }
+
+body {
+  max-width: 960px;
+  margin: 1em auto;
+  font-family: sans-serif;
+}
+
 </style>
+<h1>Observable Example: Custom Fluid Width</h1>
+<p>This <a href="https://github.com/observablehq/examples/tree/main/custom-fluid-width">example</a> demonstrates responsive sizing where the embedded chart is 50% the width of the page. Try resizing the window to see the chart resize automatically.</p>
 
-<h1>This chart is 50% the width of the page</h1>
-
-<!-- By CSS, above, the chart element will fill 50% of the body -->
-<div class="chart"></div>
+<!-- By CSS the chart element will fill 50% of the body -->
+<div id="chart" style="width: 50%;"></div>
 <p>Credit: <a href="https://observablehq.com/@d3/bar-chart">Bar Chart by D3</a></p>
 
 <script type="module">
 
 import {Runtime, Inspector, Library} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-import define from "https://api.observablehq.com/@d3/bar-chart.js?v=3";
+import notebook from "https://api.observablehq.com/@d3/bar-chart.js?v=3";
 
 // Create a modified version of the standard library where width is defined as a
-// generator, below
-const chart = document.querySelector(".chart")
-const stdlib = new Library;
+// generator, below.
+const chart = document.querySelector("#chart");
+const stdlib = new Library();
 const library = Object.assign({}, stdlib, {width});
 const runtime = new Runtime(library);
 
-runtime.module(define, name => {
-  if (name === "chart") return Inspector.into(".chart")();
+runtime.module(notebook, name => {
+  if (name === "chart") {
+    return new Inspector(chart);
+  }
 });
 
-// The width generator yields the chart element's clientWidth (if it has
-// changed) whenever the window resize event fires
+// The width generator yields the chart element’s clientWidth (if it has
+// changed) whenever the window resize event fires.
 function width() {
   return stdlib.Generators.observe(notify => {
     let width = notify(chart.clientWidth);
-
     function resized() {
       let width1 = chart.clientWidth;
       if (width1 !== width) notify(width = width1);
     }
-
-    window.addEventListener("resize", resized);
-    return () => window.removeEventListener("resize", resized);
+    addEventListener("resize", resized);
+    return () => removeEventListener("resize", resized);
   });
 }
 

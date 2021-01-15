@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html>
 <meta charset="utf-8">
-<title>Observable | Custom fixed width</title>
+<style>
 
-<h1>This canvas is 640px wide</h1>
-<div class="canvas"></div>
+body {
+  max-width: 960px;
+  margin: 1em auto;
+  font-family: sans-serif;
+}
+
+</style>
+<h1>Observable Example: Custom Fixed Width</h1>
+<p>This <a href="https://github.com/observablehq/examples/tree/main/custom-fixed-width">example</a> demonstrates embedding a cell at a fixed width of 640px.</p>
+
+<div id="canvas"></div>
 <p>Credit: <a href="https://observablehq.com/@mbostock/prims-algorithm-iv">Prim’s Algorithm IV by Mike Bostock</a></p>
 
 <script type="module">
 
 import {Runtime, Inspector, Library} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-import define from "https://api.observablehq.com/@mbostock/prims-algorithm-iv.js?v=3";
+import notebook from "https://api.observablehq.com/@mbostock/prims-algorithm-iv.js?v=3";
 
-// Create a modified version of the standard library where width is defined as a
-// constant (640px), and pass it to the runtime
-const stdlib = new Library;
-const library = Object.assign({}, stdlib, {width: 640});
-const runtime = new Runtime(library);
+const runtime = new Runtime();
 
-runtime.module(define, name => {
-  if (name === "canvas") return Inspector.into(".canvas")();
+// Instantiate the notebook, as normal.
+const main = runtime.module(notebook, name => {
+  if (name === "canvas") {
+    return new Inspector(document.querySelector("#canvas"));
+  }
 });
+
+// Set a fixed width.
+main.redefine("width", 640);
 
 </script>

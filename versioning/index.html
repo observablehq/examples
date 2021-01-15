@@ -1,31 +1,40 @@
 <!DOCTYPE html>
-<html>
 <meta charset="utf-8">
-<title>Observable | Embed specific versions</title>
+<title>Observable Example: Versioning</title>
+<style>
 
-<h1>Embed specific versions</h1>
-<p>From: <a href="https://observablehq.com/@observablehq/downloading-and-embedding-notebooks">Downloading and Embedding Notebooks</a>.</p>
+body {
+  max-width: 960px;
+  margin: 1em auto;
+  font-family: sans-serif;
+}
+
+</style>
+<h1>Observable Example: Versioning</h1>
+<p>This <a href="https://github.com/observablehq/examples/tree/main/versioning">example</a> demonstrates how to control the version of an <a href="https://observablehq.com/@observablehq/downloading-and-embedding-notebooks">embedded Observable notebook</a>.</p>
 
 <hr>
-
-<p>Embedded at the current version:</p>
+<p>Embedded at <a href="https://observablehq.com/@observablehq/downloading-and-embedding-notebooks">the latest version</a>:</p>
 <div id="observablehq-6e5586f4"></div>
-
 <script type="module">
+
 import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
 import define from "https://api.observablehq.com/@observablehq/downloading-and-embedding-notebooks.js?v=3";
 const inspect = Inspector.into("#observablehq-6e5586f4");
-(new Runtime).module(define, name => (name === "graphic") && inspect());
+const runtime = new Runtime();
+runtime.module(define, name => (name === "graphic") && inspect());
+
 </script>
 
 <hr>
-
-<p>Embedded at <a href="https://observablehq.com/d/c2a04e7b9a9d03bb@1046">an older version (1046)</a> of the notebook:</p>
+<p>Embedded at <a href="https://observablehq.com/@observablehq/downloading-and-embedding-notebooks@1046">a specific version (1046)</a>:</p>
 <div id="observablehq-6da5969b"></div>
-
 <script type="module">
+
 import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
 import define from "https://api.observablehq.com/@observablehq/downloading-and-embedding-notebooks@1046.js?v=3";
 const inspect = Inspector.into("#observablehq-6da5969b");
-(new Runtime).module(define, name => (name === "graphic") && inspect());
+const runtime = new Runtime();
+runtime.module(define, name => (name === "graphic") && inspect());
+
 </script>

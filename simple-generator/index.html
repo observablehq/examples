@@ -1,11 +1,18 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
+<title>Observable Example: Simple Generator</title>
 <style>
-body {
-  font: 200px Menlo, Consolas, monospace;
-}
-</style>
-<body>
 
+body {
+  max-width: 960px;
+  margin: 1em auto;
+  font-family: sans-serif;
+}
+
+</style>
+<h1>Observable Example: Simple Generator</h1>
+<p>This <a href="https://github.com/observablehq/examples/tree/main/simple-generator">example</a> demonstrates how to observe the value of a generator cell in an <a href="https://observablehq.com/@observablehq/downloading-and-embedding-notebooks">embedded Observable notebook</a>.</p>
+<p>The current value of <i>tick</i> is: <span id="tick">…</span></p>
 <script type="module">
 
 // Load the Observable runtime and inspector.
@@ -14,11 +21,15 @@ import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/run
 // Your notebook, compiled as an ES module.
 import notebook from "https://api.observablehq.com/@jashkenas/tick.js?v=3";
 
-// Load the notebook, observing its cells with a custom Inspector
-// that renders the value of the named cell into the document body.
-(new Runtime).module(notebook, name => {
+// Load the notebook, observing its cells with a custom Inspector that renders
+// the value of the named cell into the document.
+const runtime = new Runtime();
+const display = document.querySelector("#tick");
+runtime.module(notebook, name => {
   if (name === "tick") return {
-    fulfilled: (value) => document.body.innerHTML = value
+    fulfilled: (value) => {
+      display.textContent = value;
+    }
   };
 });
 

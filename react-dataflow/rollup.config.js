@@ -1,6 +1,7 @@
 import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
+import replace from "@rollup/plugin-replace";
 import {terser} from "rollup-plugin-terser";
 
 export default {
@@ -32,6 +33,9 @@ export default {
       generatorOpts: {compact: true}, // suppress
       include: "node_modules/**", // Observable is the only thing using import.meta
       babelHelpers: "bundled"
+    }),
+    replace({
+      "process.env.NODE_ENV": JSON.stringify("production")
     }),
     terser()
   ]
