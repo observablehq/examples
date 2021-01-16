@@ -18,10 +18,8 @@ import {chart} with {myData as data} from "@d3/zoomable-sunburst"
 
 within a notebook.
 
-This example shows a [Zoomable Sunburst](https://observablehq.com/@d3/zoomable-sunburst) where the data has been replaced by the local `population.json`, which uses [data from the Census Bureau](https://www.census.gov/data/datasets/time-series/demo/popest/2010s-counties-total.html).
+This example shows a [Zoomable Sunburst](https://observablehq.com/@d3/zoomable-sunburst) where the data has been replaced by the local `population.json`, which uses [data from the Census Bureau](https://www.census.gov/data/datasets/time-series/demo/popest/2010s-counties-total.html). Note that here `data` is redefined as a _promise_, and the chart renders with the data as soon as it resolves!
 
 The data was previously converted from a flat CSV (with columns for name, parent, and value) to a hierarchy using [d3.stratify](https://observablehq.com/@d3/d3-stratify), and the hierarchy was then [saved to JSON](https://observablehq.com/@tophtucker/d3-hierarchy-to-json).
-
-Note that, in this case, `data` is actually redefined as a _promise_, and the chart renders with the data as soon as it resolves!
 
 See also the [custom live data example](../custom-live-data/).
