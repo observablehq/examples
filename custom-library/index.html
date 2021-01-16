@@ -9,8 +9,8 @@ body {
 }
 
 </style>
-<h1>Observable Example: Custom Library</h1>
-<p>This <a href="https://github.com/observablehq/examples/tree/main/custom-library">example</a> demonstrates overriding the Observable standard library. Note that straight quotes <a href="https://observablehq.com/d/17ff3ac14bd4346e">in the original</a> have been converted to typographic (curly) quotes.</p>
+<h1><a href="https://github.com/observablehq/examples">Observable Example</a>: <a href="https://github.com/observablehq/examples/tree/main/custom-library">Custom Library</a></h1>
+<p>This example demonstrates overriding the Observable standard library. Note that straight quotes <a href="https://observablehq.com/d/17ff3ac14bd4346e">in the original</a> have been converted to typographic (curly) quotes.</p>
 
 <div id="paragraphs"></div>
 
@@ -19,9 +19,10 @@ body {
 import {Runtime, Inspector, Library} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
 import notebook from "https://api.observablehq.com/d/17ff3ac14bd4346e.js?v=3";
 
-// Note that md here is a function that returns the value of md which is itself
-// a function (a tagged template literal)! The outer function is lazily invoked
-// by the Observable runtime only if the embedded notebook references md.
+// Note that md here is a function (1) that returns the value of md which is
+// itself a function (2; a tagged template literal)! The outer function (1) is
+// lazily invoked by the Observable runtime only if the embedded notebook
+// references md.
 async function md() {
   const {default: MarkdownIt} = await import("./markdown-it.min.js");
   const markdownIt = new MarkdownIt({typographer: true});
