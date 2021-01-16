@@ -1,5 +1,16 @@
 # Observable Example: create-react-app
 
+To run this example, you must clone this repository and install it. From the terminal:
+
+```
+git clone https://github.com/observablehq/examples.git
+cd examples/react-create-react-app
+yarn
+yarn start
+```
+
+Then go to http://localhost:3000 to view the live app.
+
 This repo was created using `create-react-app`:
 
 ```
