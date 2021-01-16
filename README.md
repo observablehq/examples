@@ -8,6 +8,7 @@ This repository contains examples of [embedding Observable notebooks](https://ob
 | [**simple-constant**](https://github.com/observablehq/examples/tree/main/simple-constant/) | Read the value of a cell (that never changes) |
 | [**simple-generator**](https://github.com/observablehq/examples/tree/main/simple-generator/) | Read the value of a cell (that may change over time) |
 | [**custom-data**](https://github.com/observablehq/examples/tree/main/custom-data/) | Pass your data into a chart |
+| [**custom-live-data**](https://github.com/observablehq/examples/tree/main/custom-live-data/) | Pass live streaming data into a chart |
 | [**custom-fixed-width**](https://github.com/observablehq/examples/tree/main/custom-fixed-width/) | Set the width of a chart to a fixed value |
 | [**custom-fluid-width**](https://github.com/observablehq/examples/tree/main/custom-fluid-width/) | Resize a chart when the window is resized |
 | [**custom-fluid-width-and-height**](https://github.com/observablehq/examples/tree/main/custom-fluid-width-and-height/) | Resize a chart when its container is resized |

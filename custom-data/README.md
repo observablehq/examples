@@ -12,4 +12,6 @@ within a notebook. This example shows a [Zoomable Sunburst](https://observablehq
 
 The data was previously converted from a flat CSV (with columns for name, parent, and value) to a hierarchy using [d3.stratify](https://observablehq.com/@d3/d3-stratify), and the hierarchy was then [saved to JSON](https://observablehq.com/@tophtucker/d3-hierarchy-to-json).
 
-Note that, in this case, `data` is actually redefined as a _promise_, and the chart renders with the data as soon as it resolves! If we didn’t have to fetch the file asynchronously, the redefinition wouldn’t have to be inside an asynchronous anonymous self-invoking function (the `(async function() { … })()` part).
+Note that, in this case, `data` is actually redefined as a _promise_, and the chart renders with the data as soon as it resolves!
+
+See also the [custom live data example](../custom-live-data/).

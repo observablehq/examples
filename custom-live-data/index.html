@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  max-width: 960px;
+  margin: 1em auto;
+  padding: 0 1em;
+  font-family: sans-serif;
+}
+
+a:link:not(:hover) {
+  text-decoration: none;
+}
+
+</style>
+<h1><a href="https://github.com/observablehq/examples">Observable Example</a>: <a href="https://github.com/observablehq/examples/tree/main/custom-live-data">Custom Live Data</a></h1>
+<p>This example demonstrates overriding the data used by an embedded chart to stream live data over a web socket.</p>
+
+<div id="chart" style="height: 488px;">Loading…</div>
+<p>Credit: <a href="https://observablehq.com/@d3/histogram">Mike Bostock</a> · Data: <a href="https://www.blockchain.com/api/api_websocket">Blockchain</a></p>
+
+<script type="module">
+
+import {Runtime, Library, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import notebook from "https://api.observablehq.com/@d3/histogram.js?v=3";
+
+// Instantiate the standard library so we can use Generators.observe (optional).
+const library = new Library();
+
+// Instantiate the notebook.
+const runtime = self.runtime = new Runtime(library);
+const main = runtime.module(notebook, name => {
+  if (name === "chart") {
+    return new Inspector(document.querySelector("#chart"));
+  }
+});
+
+// Redefine the cell “data” as a generator that emits new data in response to
+// web socket messages. (Note: if you need to terminate this generator in the
+// future, call generator.return or runtime.dispose.)
+main.redefine("data", library.Generators.observe(notify => {
+  const data = [];
+  data.x = "Size (KB)";
+  data.y = "Count";
+  const socket = new WebSocket("wss://ws.blockchain.info/inv");
+  socket.addEventListener("open", () => {
+    socket.send(JSON.stringify({op: "unconfirmed_sub"}));
+  });
+  socket.addEventListener("message", event => {
+    const message = JSON.parse(event.data);
+    if (message.op === "utx") {
+      data.push(Math.min(999, message.x.size));
+      notify(data);
+    }
+  });
+  return () => socket.close();
+}));
+
+</script>
