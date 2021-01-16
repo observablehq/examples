@@ -46,3 +46,5 @@ function BrushableScatterplot({height, setSelection}) {
 ```
 
 This Rollup configuration supports file attachments, whereas many React environments (like the one you get from `create-react-app`) stumble on file attachments’ use of import.meta.
+
+See also the simpler [React + FileAttachment example](../react-file-attachment/).

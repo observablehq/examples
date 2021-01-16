@@ -27,4 +27,4 @@ function BarChart() {
 }
 ```
 
-See also [this example using create-react-app](../react-create-react-app), which tweaks the way file attachments are loaded.
+See also [the create-react-app example](../react-create-react-app), which edits the downloaded code directly to avoid the use of import.meta, and the more advanced [React + dataflow example](../react-dataflow/) for coordinating state between React and Observable.
