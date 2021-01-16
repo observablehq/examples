@@ -4,27 +4,38 @@ import notebook from "@d3/brushable-scatterplot";
 
 function BrushableScatterplot({height, setSelection}) {
   const ref = useRef();
-  const [module, setModule] = useState()
+  const [module, setModule] = useState();
 
   useEffect(() => {
-    const newModule = (new Runtime).module(notebook, name => {
-      if (name === "viewof selection") return Inspector.into(ref.current.querySelector(".viewof-selection"))();
-
-      // passes selection back up to parent component
-      if (name === "selection") return {fulfilled(value) { setSelection(value); }};
+    const runtime = new Runtime();
+    const main = runtime.module(notebook, name => {
+      // Embed the chart.
+      if (name === "viewof selection") {
+        return new Inspector(ref.current);
+      }
+      // Propagate selection state from Observable to React.
+      if (name === "selection") {
+        return {fulfilled: setSelection};
+      }
     });
-    setModule(newModule)
+    setModule(main);
+    return () => {
+      setModule(undefined);
+      runtime.dispose();
+    };
   }, []);
 
-  // receives height updates from parent
+  // Propagate height state from React to Observable.
   useEffect(() => {
-    if (module) module.redefine("height", height)
-  }, [height])
+    if (module !== undefined) {
+      module.redefine("height", height);
+    }
+  }, [height, module]);
 
   return (
-    <div className="BrushableScatterplot" ref={ref}>
-      <div className="viewof-selection"></div>
-      <p>Credit: <a href="https://observablehq.com/@d3/brushable-scatterplot">Brushable Scatterplot by D3</a></p>
+    <div className="BrushableScatterplot">
+      <div ref={ref}></div>
+      <p>Credit: <a href="https://observablehq.com/@d3/brushable-scatterplot">Mike Bostock</a></p>
     </div>
   );
 }
