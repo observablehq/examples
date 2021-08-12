@@ -13,11 +13,11 @@ import notebook from "https://api.observablehq.com/d/e893bb16368a0a92.js?v=3";
   const main = runtime.module(notebook);
 
   // Extract the value of “answer”.
-  const answer = await module.value("answer");
+  const answer = await main.value("answer");
   console.log(`The answer is ${answer}.`); // The answer is 42.
 
   // Extract the value of “greet”.
-  const greet = await module.value("greet");
+  const greet = await main.value("greet");
   console.log(greet("world")); // Hello, world!
 })();
 ```
