@@ -12,6 +12,7 @@ This repository contains examples of [embedding Observable notebooks](https://ob
 | [**custom-fluid-width**](https://github.com/observablehq/examples/tree/main/custom-fluid-width/) | Resize a chart when the window is resized |
 | [**custom-fluid-width-and-height**](https://github.com/observablehq/examples/tree/main/custom-fluid-width-and-height/) | Resize a chart when its container is resized |
 | [**custom-library**](https://github.com/observablehq/examples/tree/main/custom-library/) | Override the Observable Standard Library |
+| [**secret**](https://github.com/observablehq/examples/tree/main/secret) | Override the implementation of Secrets |
 | [**standalone**](https://github.com/observablehq/examples/tree/main/standalone/) | Self-host an Observable notebook with no external dependencies |
 | [**versioning**](https://github.com/observablehq/examples/tree/main/versioning/) | Embed a specific version of a notebook |
 | [**iframe-resize**](https://github.com/observablehq/examples/tree/main/iframe-resize/) | Implementing Embedly’s protocol for Iframes that resize to match their contents |
