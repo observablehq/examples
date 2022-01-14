@@ -30,9 +30,9 @@ main.redefine("data", library.Generators.observe(notify => {
 This is akin to doing
 
 ```js
-import {chart} with {myData as data} from "@d3/histogram"
+import {chart} with {myData as data} from "@d3/histogram@261"
 ```
 
-within a notebook. This example shows a [histogram](https://observablehq.com/@d3/histogram) where the data has been replaced to show a live histogram of recent Bitcoin transaction sizes via [Blockchain’s Websocket API](https://www.blockchain.com/api/api_websocket). Note that here `data` is redefined as a _generator_, and the chart re-renders whenever the data changes!
+within a notebook. This example shows a [histogram](https://observablehq.com/@d3/histogram@261) where the data has been replaced to show a live histogram of recent Bitcoin transaction sizes via [Blockchain’s Websocket API](https://www.blockchain.com/api/api_websocket). Note that here `data` is redefined as a _generator_, and the chart re-renders whenever the data changes!
 
 See also the [custom static data example](../custom-data/).
