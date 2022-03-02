@@ -1,4 +1,4 @@
-# Observable Example: React + Dataflow
+# Observable Example: React + Dataflow (Static Import)
 
 See it live: https://observablehq.github.io/examples/react-dataflow/
 
