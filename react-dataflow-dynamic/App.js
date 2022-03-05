@@ -1,7 +1,7 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import BrushableScatterplot from "./BrushableScatterplot.js";
 
-function App() {
+export const App = () => {
   // passed to notebook
   const [height, setHeight] = useState(600)
 
@@ -18,5 +18,3 @@ function App() {
     </>
   );
 }
-
-export default App;

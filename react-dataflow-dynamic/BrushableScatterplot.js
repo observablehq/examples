@@ -1,4 +1,5 @@
-import {useEffect, useRef, useState} from "react";
+import React, {useRef, useEffect, useState} from "react";
+import {Runtime, Inspector} from "@observablehq/runtime";
 
 function BrushableScatterplot({height, setSelection}) {
   const ref = useRef();
@@ -6,9 +7,8 @@ function BrushableScatterplot({height, setSelection}) {
 
   useEffect(() => {
     async function load() {
-      // Dynamically load the Runtime and the latest published version of the
-      // notebook, https://observablehq.com/@d3/brushable-scatterplot.
-      const {Runtime, Inspector} = await import("https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js");
+      // Dynamically load the latest published version of the notebook,
+      // https://observablehq.com/@d3/brushable-scatterplot.
       const {default: notebook} = await import("https://api.observablehq.com/@d3/brushable-scatterplot.js?v=3");
 
       const runtime = new Runtime();
@@ -23,12 +23,15 @@ function BrushableScatterplot({height, setSelection}) {
         }
       });
       setModule(main);
-      return () => {
+      return runtime;
+    }
+    const promise = load();
+    return () => {
+      promise.then((runtime) => {
         setModule(undefined);
         runtime.dispose();
-      };
-    }
-    load();
+      });
+    };
   }, []);
 
   // Propagate height state from React to Observable.
