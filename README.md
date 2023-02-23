@@ -19,4 +19,5 @@ This repository contains examples of [embedding Observable notebooks](https://ob
 | [**react-create-react-app**](https://github.com/observablehq/examples/tree/main/react-create-react-app/) | Embed an Observable notebook in a create-react-app application |
 | [**react-file-attachment**](https://github.com/observablehq/examples/tree/main/react-file-attachment/) | Wrap a notebook (with a file attachment) in a React component |
 | [**react-dataflow**](https://github.com/observablehq/examples/tree/main/react-dataflow/) | Pass data between a React app and an Observable notebook |
+| [**react-dataflow-dynamic**](https://github.com/observablehq/examples/tree/main/react-dataflow-dynamic/) | Uses dynamic imports so republishing notebook is immediately reflected |
 | [**breakout**](https://github.com/observablehq/examples/tree/main/breakout/) | An extravagant way to demonstrate mutable state |
